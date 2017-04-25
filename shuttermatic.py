@@ -10,6 +10,8 @@ myFont = tkFont.Font(family = "Helvetica", size = 36, weight = "bold")
 
 def buttonClicked():
     print("button was clicked")
+    exitButton.pack_forget()
+    startButton.pack_forget()
     takePhoto(4)
 
 def takePhoto(snap):
@@ -29,11 +31,12 @@ def countdown(count):
         win.after(100, callCamera)
 
 def callCamera():
-    subprocess.call("sudo /home/pi/scripts/boothcamera.sh", shell=True)
+    subprocess.check_output("/home/pi/shuttermatic/boothcamera.sh", shell=True)
 
 def assAndPrint():
-    subprocess.call("sudo /home/pi/scripts/assemble_and_print", shell=True)
+    subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
     label["text"] = "Thanks!"
+    startButton.pack()
     exitButton.pack(side = BOTTOM)
 
 def exitProgram():
@@ -46,9 +49,10 @@ label.place(relx=0.5, rely=0.5, anchor=CENTER)
 label["bg"] = "yellow"
 win["bg"] = "yellow"
 exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram, height = 2, width = 6)
-
+exitButton.pack(side = BOTTOM)
 startButton = Button(win, text = "Start", font = myFont, command = buttonClicked, height = 2, width = 8)
 startButton.pack()
 
 mainloop()
-    
+
+      
