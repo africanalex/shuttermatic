@@ -12,12 +12,14 @@ def buttonClicked():
     print("button was clicked")
     exitButton.pack_forget()
     startButton.pack_forget()
+    start1Button.pack_forget()
     takePhoto(4)
 
 def button1Clicked():
     print("button was clicked")
     exitButton.pack_forget()
     startButton.pack_forget()
+    start1Button.pack_forget()
     take1Photo(1)
 
 def takePhoto(snap):
@@ -28,7 +30,7 @@ def takePhoto(snap):
         label["text"] = "Please wait..."
         win.after(100, assAndPrint)
 
-def takePhoto(snap):
+def take1Photo(snap):
     if snap > 0:
         countdown(3)
         win.after(10000, takePhoto, snap-1)
@@ -70,9 +72,9 @@ label["bg"] = "yellow"
 win["bg"] = "yellow"
 exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram, height = 2, width = 6)
 exitButton.pack(side = BOTTOM)
-startButton = Button(win, text = "Start", font = myFont, command = buttonClicked, height = 2, width = 8)
+startButton = Button(win, text = "Start 4", font = myFont, command = buttonClicked, height = 2, width = 8)
 startButton.pack()
-start1Button = Button(win, text = "Start", font = myFont, command = button1Clicked, height = 2, width = 8)
+start1Button = Button(win, text = "Start 1", font = myFont, command = button1Clicked, height = 2, width = 8)
 start1Button.pack()
 
 mainloop()
