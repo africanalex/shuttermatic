@@ -53,12 +53,14 @@ def assAndPrint():
     subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
     label["text"] = "Thanks!"
     startButton.pack()
+    start1Button.pack()
     exitButton.pack(side = BOTTOM)
     
 def assAndPrint1():
     subprocess.call("/home/pi/shuttermatic/assemble_and_print_one", shell=True)
     label["text"] = "Thanks!"
     startButton.pack()
+    start1Button.pack()
     exitButton.pack(side = BOTTOM)
 
 def exitProgram():
