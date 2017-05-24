@@ -73,7 +73,7 @@ exitButton.pack(side = BOTTOM)
 startButton = Button(win, text = "Start", font = myFont, command = buttonClicked, height = 2, width = 8)
 startButton.pack()
 start1Button = Button(win, text = "Start", font = myFont, command = button1Clicked, height = 2, width = 8)
-startButton.pack()
+start1Button.pack()
 
 mainloop()
 
