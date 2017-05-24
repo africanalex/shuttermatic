@@ -14,6 +14,12 @@ def buttonClicked():
     startButton.pack_forget()
     takePhoto(4)
 
+def button1Clicked():
+    print("button was clicked")
+    exitButton.pack_forget()
+    startButton.pack_forget()
+    take1Photo(1)
+
 def takePhoto(snap):
     if snap > 0:
         countdown(3)
@@ -22,6 +28,14 @@ def takePhoto(snap):
         label["text"] = "Please wait..."
         win.after(100, assAndPrint)
 
+def takePhoto(snap):
+    if snap > 0:
+        countdown(3)
+        win.after(10000, takePhoto, snap-1)
+    else:
+        label["text"] = "Please wait..."
+        win.after(100, assAndPrint1)        
+        
 def countdown(count):
     label["text"] = count
     if count > 0:
@@ -34,6 +48,12 @@ def callCamera():
     subprocess.check_output("/home/pi/shuttermatic/boothcamera.sh", shell=True)
 
 def assAndPrint():
+    subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
+    label["text"] = "Thanks!"
+    startButton.pack()
+    exitButton.pack(side = BOTTOM)
+    
+def assAndPrint1():
     subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
     label["text"] = "Thanks!"
     startButton.pack()
@@ -51,6 +71,8 @@ win["bg"] = "yellow"
 exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram, height = 2, width = 6)
 exitButton.pack(side = BOTTOM)
 startButton = Button(win, text = "Start", font = myFont, command = buttonClicked, height = 2, width = 8)
+startButton.pack()
+start1Button = Button(win, text = "Start", font = myFont, command = button1Clicked, height = 2, width = 8)
 startButton.pack()
 
 mainloop()
