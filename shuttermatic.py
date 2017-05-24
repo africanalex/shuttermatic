@@ -33,7 +33,7 @@ def takePhoto(snap):
 def take1Photo(snap):
     if snap > 0:
         countdown(3)
-        win.after(10000, takePhoto, snap-1)
+        win.after(10000, take1Photo, snap-1)
     else:
         label["text"] = "Please wait..."
         win.after(100, assAndPrint1)        
