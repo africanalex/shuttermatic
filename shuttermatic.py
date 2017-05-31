@@ -52,15 +52,15 @@ def callCamera():
 def assAndPrint():
     subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
     label["text"] = "Thanks!"
-    startButton.pack(side = LEFT)
-    start1Button.pack(side = RIGHT)
+    startButton.pack(side = LEFT,padx=20)
+    start1Button.pack(side = RIGHT, padx=20)
     exitButton.pack(side = BOTTOM)
     
 def assAndPrint1():
     subprocess.call("/home/pi/shuttermatic/assemble_and_print_one", shell=True)
     label["text"] = "Thanks!"
-    startButton.pack(side = LEFT)
-    start1Button.pack(side = RIGHT)
+    startButton.pack(side = LEFT,padx=20)
+    start1Button.pack(side = RIGHT, padx=20)
     exitButton.pack(side = BOTTOM)
 
 def exitProgram():
@@ -79,10 +79,11 @@ exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram)
 exitButton.pack(side = BOTTOM)
 img4 = PhotoImage(file="4button.gif")
 startButton = Button(win, image = img4, font = myFont, command = buttonClicked)
-startButton.pack(side = LEFT)
 img1 = PhotoImage(file="1button.gif")
 start1Button = Button(win, image=img1, command = button1Clicked)
-start1Button.pack(side = RIGHT)
+
+startButton.pack(side = LEFT,padx=20)
+start1Button.pack(side = RIGHT, padx=20)
 
 mainloop()
 
