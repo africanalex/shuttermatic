@@ -66,8 +66,10 @@ def assAndPrint1():
 def exitProgram():
     win.destroy()
 
+img1 = PhotoImage(file="1button.gif")
+
 win.title("Photobooth")
-win.attributes("-fullscreen", True)
+#win.attributes("-fullscreen", True)
 label = Label(win, font = myFont)
 label.place(relx=0.5, rely=0.5, anchor=CENTER)
 label["bg"] = "yellow"
@@ -76,7 +78,8 @@ exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram, he
 exitButton.pack(side = BOTTOM)
 startButton = Button(win, text = "Start 4", font = myFont, command = buttonClicked, height = 2, width = 8)
 startButton.pack()
-start1Button = Button(win, text = "Start 1", font = myFont, command = button1Clicked, height = 2, width = 8)
+start1Button = Button(win,text = "1", font = myFont, command = button1Clicked, height = 2, width = 8)
+start1Button.config(image=img1)
 start1Button.pack()
 
 mainloop()
