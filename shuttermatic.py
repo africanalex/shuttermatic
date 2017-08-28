@@ -12,31 +12,34 @@ def photo_count():
     if(os.path.isfile('./f_count.txt')):
         m = open('f_count.txt', 'r')
         n = int(m.read())
-        if n <= 35:
-            m.close()
-            m = open('f_count.txt', 'w')
-            s = str(n + 1)
-            m.write(s)
-            m.close()
-            print('Photo number '+s)
-            button1Clicked()
-        else:
-            print('Please Check Catredge')
-            label["text"] = "Please Check Catredge"
-            m.close()
-            #Create a buttlon here that says Checked or Cancel
-            #if cancel it will terminate the process
+        m.close()
+        m = open('f_count.txt', 'w')
+        s = str(n + 1)
+        m.write(s)
+        m.close()
+        return s
 
     else:
         new = open('f_count.txt', 'w')
         new.write('0')
         new.close()
-        photo_count()
+        photo_count
 
-def checked():
-    new = open('f_count.txt', 'w')
-    new.write('0')
-    new.close()
+def reset_count(num):
+    print("reset was clicked ")
+    def wait_t():
+        print("Continue...")
+        if num == 1:
+            label["text"] = ""
+            win.after(100, assAndPrint1)
+        elif num == 4:
+            label["text"] = ""
+            win.after(100, assAndPrint)
+    res = open('f_count.txt', 'w')
+    res.write('0')
+    res.close()
+    label["text"] = "Please be patient ..."
+    win.after(100, wait_t)
 
 def buttonClicked():
     print("button was clicked")
@@ -80,18 +83,40 @@ def callCamera():
     subprocess.check_output("/home/pi/shuttermatic/boothcamera.sh", shell=True)
 
 def assAndPrint():
-    subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
-    label["text"] = "Thanks!"
-    startButton.pack(side = LEFT,padx=20)
-    start1Button.pack(side = RIGHT, padx=20)
-    exitButton.pack(side = BOTTOM)
+    p_num = int(photo_count())
+    if p_num > 36:
+        label["text"] = "Please Check Catredge"
+        def continueBtnFunc(func_num):
+            reset_count(func_num)
+            continueBtn.pack_forget()
+        continueBtn = Button(win, text = "Continue", font = myFont,   command=lambda: continueBtnFunc(4))
+        continueBtn.pack(side = BOTTOM)
+        
+    elif p_num <= 36:
+        print('Photo number ', p_num)
+        subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
+        label["text"] = "Thanks!"
+        startButton.pack(side = LEFT,padx=20)
+        start1Button.pack(side = RIGHT, padx=20)
+        exitButton.pack(side = BOTTOM)
     
 def assAndPrint1():
-    subprocess.call("/home/pi/shuttermatic/assemble_and_print_one", shell=True)
-    label["text"] = "Thanks!"
-    startButton.pack(side = LEFT,padx=20)
-    start1Button.pack(side = RIGHT, padx=20)
-    exitButton.pack(side = BOTTOM)
+    p_num = int(photo_count())
+    if p_num > 36:
+        label["text"] = "Please Check Catredge"
+        def continueBtnFunc(func_num):
+            reset_count(func_num)
+            continueBtn.pack_forget()
+        continueBtn = Button(win, text = "Continue", font = myFont,   command=lambda: continueBtnFunc(1))
+        continueBtn.pack(side = BOTTOM)
+        
+    elif p_num <= 36:
+        print('Photo number ', p_num)
+        subprocess.call("/home/pi/shuttermatic/assemble_and_print_one", shell=True)
+        label["text"] = "Thanks!"
+        startButton.pack(side = LEFT,padx=20)
+        start1Button.pack(side = RIGHT, padx=20)
+        exitButton.pack(side = BOTTOM)
 
 def exitProgram():
     win.destroy()
@@ -108,9 +133,9 @@ win["bg"] = "yellow"
 exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram)
 exitButton.pack(side = BOTTOM)
 img4 = PhotoImage(file="4button.gif")
-startButton = Button(win, image = img4, font = myFont, command = photo_count)
+startButton = Button(win, image = img4, font = myFont, command = buttonClicked)
 img1 = PhotoImage(file="1button.gif")
-start1Button = Button(win, image=img1, command = photo_count)
+start1Button = Button(win, image=img1, command = button1Clicked)
 
 startButton.pack(side = LEFT,padx=20)
 start1Button.pack(side = RIGHT, padx=20)
