@@ -1,5 +1,6 @@
 #!/usr/bin/python
-
+#forked by Joemags
+#28/08/2017
 from Tkinter import *
 import tkFont
 import time, os, subprocess
