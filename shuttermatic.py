@@ -1,5 +1,6 @@
 #!/usr/bin/python
-
+#forked by Joemags
+#28/08/2017
 from Tkinter import *
 import tkFont
 import time, os, subprocess
@@ -7,6 +8,38 @@ import time, os, subprocess
 win = Tk()
 
 myFont = tkFont.Font(family = "Helvetica", size = 36, weight = "bold")
+def photo_count():
+    import os
+    if(os.path.isfile('./f_count.txt')):
+        m = open('f_count.txt', 'r')
+        n = int(m.read())
+        m.close()
+        m = open('f_count.txt', 'w')
+        s = str(n + 1)
+        m.write(s)
+        m.close()
+        return s
+
+    else:
+        new = open('f_count.txt', 'w')
+        new.write('1')
+        new.close()
+        return 1
+
+def reset_count(num):
+    print("reset was clicked ")
+    def wait_t():
+        print("Continue...")
+        label["text"] = ""
+        if num == 1:
+            win.after(100, assAndPrint1)
+        elif num == 4:
+            win.after(100, assAndPrint)
+    res = open('f_count.txt', 'w')
+    res.write('0')
+    res.close()
+    label["text"] = "Please be patient ..."
+    win.after(100, wait_t)
 
 def buttonClicked():
     print("button was clicked")
@@ -50,18 +83,40 @@ def callCamera():
     subprocess.check_output("/home/pi/shuttermatic/boothcamera.sh", shell=True)
 
 def assAndPrint():
-    subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
-    label["text"] = "Thanks!"
-    startButton.pack(side = LEFT,padx=20)
-    start1Button.pack(side = RIGHT, padx=20)
-    exitButton.pack(side = BOTTOM)
+    p_num = int(photo_count())
+    if p_num > 36:
+        label["text"] = "Please check the cartridge"
+        def continueBtnFunc(func_num):
+            reset_count(func_num)
+            continueBtn.pack_forget()
+        continueBtn = Button(win, text = "Continue", font = myFont,   command=lambda: continueBtnFunc(4))
+        continueBtn.pack(side = BOTTOM)
+        
+    elif p_num <= 36:
+        print('Photo number ', p_num)
+        subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
+        label["text"] = "Thanks!"
+        startButton.pack(side = LEFT,padx=20)
+        start1Button.pack(side = RIGHT, padx=20)
+        exitButton.pack(side = BOTTOM)
     
 def assAndPrint1():
-    subprocess.call("/home/pi/shuttermatic/assemble_and_print_one", shell=True)
-    label["text"] = "Thanks!"
-    startButton.pack(side = LEFT,padx=20)
-    start1Button.pack(side = RIGHT, padx=20)
-    exitButton.pack(side = BOTTOM)
+    p_num = int(photo_count())
+    if p_num > 36:
+        label["text"] = "Please check the cartridge"
+        def continueBtnFunc(func_num):
+            reset_count(func_num)
+            continueBtn.pack_forget()
+        continueBtn = Button(win, text = "Continue", font = myFont,   command=lambda: continueBtnFunc(1))
+        continueBtn.pack(side = BOTTOM)
+        
+    elif p_num <= 36:
+        print('Photo number ', p_num)
+        subprocess.call("/home/pi/shuttermatic/assemble_and_print_one", shell=True)
+        label["text"] = "Thanks!"
+        startButton.pack(side = LEFT,padx=20)
+        start1Button.pack(side = RIGHT, padx=20)
+        exitButton.pack(side = BOTTOM)
 
 def exitProgram():
     win.destroy()
