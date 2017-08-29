@@ -22,19 +22,18 @@ def photo_count():
 
     else:
         new = open('f_count.txt', 'w')
-        new.write('0')
+        new.write('1')
         new.close()
-        photo_count
+        return 1
 
 def reset_count(num):
     print("reset was clicked ")
     def wait_t():
         print("Continue...")
+        label["text"] = ""
         if num == 1:
-            label["text"] = ""
             win.after(100, assAndPrint1)
         elif num == 4:
-            label["text"] = ""
             win.after(100, assAndPrint)
     res = open('f_count.txt', 'w')
     res.write('0')
@@ -86,7 +85,7 @@ def callCamera():
 def assAndPrint():
     p_num = int(photo_count())
     if p_num > 36:
-        label["text"] = "Please Check Catredge"
+        label["text"] = "Please check the cartridge"
         def continueBtnFunc(func_num):
             reset_count(func_num)
             continueBtn.pack_forget()
@@ -104,7 +103,7 @@ def assAndPrint():
 def assAndPrint1():
     p_num = int(photo_count())
     if p_num > 36:
-        label["text"] = "Please Check Catredge"
+        label["text"] = "Please check the cartridge"
         def continueBtnFunc(func_num):
             reset_count(func_num)
             continueBtn.pack_forget()
