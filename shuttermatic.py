@@ -1,27 +1,82 @@
 #!/usr/bin/python
 #forked by Joemags
 #28/08/2017
+
 from Tkinter import *
+from threading import Thread
 import tkFont
 import time, os, subprocess
+import RPi.GPIO as GPIO
 
+GPIO.setmode(GPIO.BCM)
+
+GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
+
+class check_button(Thread):
+
+    def __init__(self, labelText):
+        Thread.__init__(self)
+
+    def checkloop(self):
+        while True:
+            if GPIO.input(21) == 0:
+                printerOn = int(printer_on())
+                if printerOn == 1:
+                    printCount = int(photos_taken())
+                    print printCount
+                    if printCount <= 36:
+                        print "button pushed"
+                        take1Photo(1)
+                        time.sleep(5)
+                else:
+                    print "button pushed"
+                    take1Photo(1)
+                    time.sleep(5)
+                    
+
+
+ 
 win = Tk()
 
+labelText1 = StringVar()
+chk1 = check_button(labelText1)
+c1 = Thread(target=chk1.checkloop)
+c1.start()
+
+
 myFont = tkFont.Font(family = "Helvetica", size = 36, weight = "bold")
-def photo_count():
+def photos_taken():
     import os
-    if(os.path.isfile('./f_count.txt')):
-        m = open('f_count.txt', 'r')
+    if(os.path.isfile('./settings/f_count.txt')):
+        m = open('/home/pi/shuttermatic/settings/f_count.txt', 'r')
         n = int(m.read())
         m.close()
-        m = open('f_count.txt', 'w')
+        return n
+
+def printer_on():
+    import os
+    if(os.path.isfile('./settings/printer.txt')):
+        m = open('/home/pi/shuttermatic/settings/printer.txt', 'r')
+        n = int(m.read())
+        m.close()
+        return n
+
+    
+def photo_count():
+    import os
+    if(os.path.isfile('./settings/f_count.txt')):
+        m = open('/home/pi/shuttermatic/settings/f_count.txt', 'r')
+        n = int(m.read())
+        m.close()
+        m = open('/home/pi/shuttermatic/settings/f_count.txt', 'w')
         s = str(n + 1)
+        printCount = s
         m.write(s)
         m.close()
         return s
 
     else:
-        new = open('f_count.txt', 'w')
+        new = open('/home/pi/shuttermatic/settings/f_count.txt', 'w')
         new.write('1')
         new.close()
         return 1
@@ -35,7 +90,7 @@ def reset_count(num):
             win.after(100, assAndPrint1)
         elif num == 4:
             win.after(100, assAndPrint)
-    res = open('f_count.txt', 'w')
+    res = open('/home/pi/shuttermatic/settings/f_count.txt', 'w')
     res.write('0')
     res.close()
     label["text"] = "Please be patient ..."
@@ -102,7 +157,8 @@ def assAndPrint():
     
 def assAndPrint1():
     p_num = int(photo_count())
-    if p_num > 36:
+    printerOn = int(printer_on())
+    if p_num > 36 & printerOn == 1:
         label["text"] = "Please check the cartridge"
         def continueBtnFunc(func_num):
             reset_count(func_num)
@@ -110,7 +166,7 @@ def assAndPrint1():
         continueBtn = Button(win, text = "Continue", font = myFont,   command=lambda: continueBtnFunc(1))
         continueBtn.pack(side = BOTTOM)
         
-    elif p_num <= 36:
+    else:
         print('Photo number ', p_num)
         subprocess.call("/home/pi/shuttermatic/assemble_and_print_one", shell=True)
         label["text"] = "Thanks!"
@@ -125,7 +181,7 @@ def exitProgram():
 
 
 win.title("Photobooth")
-win.attributes("-fullscreen", True)
+win.attributes("-fullscreen", False)
 label = Label(win, font = myFont)
 label.place(relx=0.5, rely=0.5, anchor=CENTER)
 label["bg"] = "yellow"
