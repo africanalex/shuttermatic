@@ -10,8 +10,31 @@ import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 
+POSE_LED = 20
+WAIT_LED = 16
+
+GPIO.setup(POSE_LED, GPIO.OUT)
+GPIO.output(POSE_LED, True)
+GPIO.setup(WAIT_LED, GPIO.OUT)
+GPIO.output(WAIT_LED, False)
 GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
 
+def poseLight():
+    GPIO.output(POSE_LED, True)
+    time.sleep(1.5)
+    for i in range(5):
+        GPIO.output(POSE_LED, False)
+        time.sleep(0.4)
+        GPIO.output(POSE_LED, True)
+        time.sleep(0.4)
+    for i in range(5):
+        GPIO.output(POSE_LED, False)
+        time.sleep(0.1)
+        GPIO.output(POSE_LED, True)
+        time.sleep(0.1)
+    time.sleep(3)
+    GPIO.output(POSE_LED, False)
+    
 class check_button(Thread):
 
     def __init__(self, labelText):
@@ -25,12 +48,14 @@ class check_button(Thread):
                     printCount = int(photos_taken())
                     print printCount
                     if printCount <= 36:
-                        print "button pushed"
+                        print "button pushed with printer on"
                         take1Photo(1)
+                        poseLight()
                         time.sleep(5)
                 else:
-                    print "button pushed"
+                    print "button pushed with printer off"
                     take1Photo(1)
+                    poseLight()
                     time.sleep(5)
                     
 
@@ -112,18 +137,20 @@ def button1Clicked():
 
 def takePhoto(snap):
     if snap > 0:
-        countdown(3)
+        countdown(5)
         win.after(10000, takePhoto, snap-1)
     else:
         label["text"] = "Please wait..."
+        GPIO.output(WAIT_LED, True)
         win.after(100, assAndPrint)
 
 def take1Photo(snap):
     if snap > 0:
-        countdown(3)
+        countdown(5)
         win.after(10000, take1Photo, snap-1)
     else:
         label["text"] = "Please wait..."
+        GPIO.output(WAIT_LED, True)
         win.after(100, assAndPrint1)        
         
 def countdown(count):
@@ -151,6 +178,7 @@ def assAndPrint():
         print('Photo number ', p_num)
         subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
         label["text"] = "Thanks!"
+        GPIO.output(WAIT_LED, False)
         startButton.pack(side = LEFT,padx=20)
         start1Button.pack(side = RIGHT, padx=20)
         exitButton.pack(side = BOTTOM)
@@ -170,6 +198,7 @@ def assAndPrint1():
         print('Photo number ', p_num)
         subprocess.call("/home/pi/shuttermatic/assemble_and_print_one", shell=True)
         label["text"] = "Thanks!"
+        GPIO.output(WAIT_LED, False)
         startButton.pack(side = LEFT,padx=20)
         start1Button.pack(side = RIGHT, padx=20)
         exitButton.pack(side = BOTTOM)
