@@ -73,7 +73,7 @@ myFont = tkFont.Font(family = "Helvetica", size = 36, weight = "bold")
 def photos_taken():
     import os
     if(os.path.isfile('./settings/f_count.txt')):
-        m = open('/home/pi/shuttermatic/settings/f_count.txt', 'r')
+        m = open('/home/booth/shuttermatic/settings/f_count.txt', 'r')
         n = int(m.read())
         m.close()
         return n
@@ -81,7 +81,7 @@ def photos_taken():
 def printer_on():
     import os
     if(os.path.isfile('./settings/printer.txt')):
-        m = open('/home/pi/shuttermatic/settings/printer.txt', 'r')
+        m = open('/home/booth/shuttermatic/settings/printer.txt', 'r')
         n = int(m.read())
         m.close()
         return n
@@ -90,10 +90,10 @@ def printer_on():
 def photo_count():
     import os
     if(os.path.isfile('./settings/f_count.txt')):
-        m = open('/home/pi/shuttermatic/settings/f_count.txt', 'r')
+        m = open('/home/booth/shuttermatic/settings/f_count.txt', 'r')
         n = int(m.read())
         m.close()
-        m = open('/home/pi/shuttermatic/settings/f_count.txt', 'w')
+        m = open('/home/booth/shuttermatic/settings/f_count.txt', 'w')
         s = str(n + 1)
         printCount = s
         m.write(s)
@@ -101,7 +101,7 @@ def photo_count():
         return s
 
     else:
-        new = open('/home/pi/shuttermatic/settings/f_count.txt', 'w')
+        new = open('/home/booth/shuttermatic/settings/f_count.txt', 'w')
         new.write('1')
         new.close()
         return 1
@@ -115,7 +115,7 @@ def reset_count(num):
             win.after(100, assAndPrint1)
         elif num == 4:
             win.after(100, assAndPrint)
-    res = open('/home/pi/shuttermatic/settings/f_count.txt', 'w')
+    res = open('/home/booth/shuttermatic/settings/f_count.txt', 'w')
     res.write('0')
     res.close()
     label["text"] = "Please be patient ..."
@@ -162,7 +162,7 @@ def countdown(count):
         win.after(100, callCamera)
 
 def callCamera():
-    subprocess.check_output("/home/pi/shuttermatic/boothcamera.sh", shell=True)
+    subprocess.check_output("/home/booth/shuttermatic/boothcamera.sh", shell=True)
 
 def assAndPrint():
     p_num = int(photo_count())
@@ -176,7 +176,7 @@ def assAndPrint():
         
     elif p_num <= 36:
         print('Photo number ', p_num)
-        subprocess.call("/home/pi/shuttermatic/assemble_and_print", shell=True)
+        subprocess.call("/home/booth/shuttermatic/assemble_and_print", shell=True)
         label["text"] = "Thanks!"
         GPIO.output(WAIT_LED, False)
         startButton.pack(side = LEFT,padx=20)
@@ -196,7 +196,7 @@ def assAndPrint1():
         
     else:
         print('Photo number ', p_num)
-        subprocess.call("/home/pi/shuttermatic/assemble_and_print_one", shell=True)
+        subprocess.call("/home/booth/shuttermatic/assemble_and_print_one", shell=True)
         label["text"] = "Thanks!"
         GPIO.output(WAIT_LED, False)
         startButton.pack(side = LEFT,padx=20)
