@@ -6,70 +6,64 @@ from Tkinter import *
 from threading import Thread
 import tkFont
 import time, os, subprocess
-import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BCM)
+#GPIO.setmode(GPIO.BCM)
+#
+#POSE_LED = 20
+#WAIT_LED = 16
+#
+#GPIO.setup(POSE_LED, GPIO.OUT)
+#GPIO.output(POSE_LED, True)
+#GPIO.setup(WAIT_LED, GPIO.OUT)
+#GPIO.output(WAIT_LED, False)
+#GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
 
-POSE_LED = 20
-WAIT_LED = 16
-
-GPIO.setup(POSE_LED, GPIO.OUT)
-GPIO.output(POSE_LED, True)
-GPIO.setup(WAIT_LED, GPIO.OUT)
-GPIO.output(WAIT_LED, False)
-GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
-
-def poseLight():
-    GPIO.output(POSE_LED, True)
-    time.sleep(1.5)
-    for i in range(5):
-        GPIO.output(POSE_LED, False)
-        time.sleep(0.4)
-        GPIO.output(POSE_LED, True)
-        time.sleep(0.4)
-    for i in range(5):
-        GPIO.output(POSE_LED, False)
-        time.sleep(0.1)
-        GPIO.output(POSE_LED, True)
-        time.sleep(0.1)
-    time.sleep(3)
-    GPIO.output(POSE_LED, False)
-    
-class check_button(Thread):
-
-    def __init__(self, labelText):
-        Thread.__init__(self)
-
-    def checkloop(self):
-        while True:
-            if GPIO.input(21) == 0:
-                printerOn = int(printer_on())
-                if printerOn == 1:
-                    printCount = int(photos_taken())
-                    print printCount
-                    if printCount <= 36:
-                        print "button pushed with printer on"
-                        take1Photo(1)
-                        poseLight()
-                        time.sleep(5)
-                else:
-                    print "button pushed with printer off"
-                    take1Photo(1)
-                    poseLight()
-                    time.sleep(5)
-                    
+#def poseLight():
+#    GPIO.output(POSE_LED, True)
+#    time.sleep(1.5)
+#    for i in range(5):
+#        GPIO.output(POSE_LED, False)
+#        time.sleep(0.4)
+#        GPIO.output(POSE_LED, True)
+#        time.sleep(0.4)
+#    for i in range(5):
+#        GPIO.output(POSE_LED, False)
+#        time.sleep(0.1)
+#        GPIO.output(POSE_LED, True)
+#        time.sleep(0.1)
+#    time.sleep(3)
+#    GPIO.output(POSE_LED, False)
+#    
+#class check_button(Thread):
+#
+#    def __init__(self, labelText):
+#        Thread.__init__(self)
+#
+#    def checkloop(self):
+#        while True:
+#            if GPIO.input(21) == 0:
+#                printerOn = int(printer_on())
+#                if printerOn == 1:
+#                    printCount = int(photos_taken())
+#                    print printCount
+#                    if printCount <= 36:
+#                        print "button pushed with printer on"
+#                        take1Photo(1)
+#                        poseLight()
+#                        time.sleep(5)
+#                else:
+#                    print "button pushed with printer off"
+#                    take1Photo(1)
+#                    poseLight()
+#                    time.sleep(5)
+#                    
 
 
  
-win = Tk()
-
-labelText1 = StringVar()
-chk1 = check_button(labelText1)
-c1 = Thread(target=chk1.checkloop)
-c1.start()
 
 
-myFont = tkFont.Font(family = "Helvetica", size = 36, weight = "bold")
+
+
 def photos_taken():
     import os
     if(os.path.isfile('./settings/f_count.txt')):
@@ -141,7 +135,7 @@ def takePhoto(snap):
         win.after(10000, takePhoto, snap-1)
     else:
         label["text"] = "Please wait..."
-        GPIO.output(WAIT_LED, True)
+#        GPIO.output(WAIT_LED, True)
         win.after(100, assAndPrint)
 
 def take1Photo(snap):
@@ -150,7 +144,7 @@ def take1Photo(snap):
         win.after(10000, take1Photo, snap-1)
     else:
         label["text"] = "Please wait..."
-        GPIO.output(WAIT_LED, True)
+#        GPIO.output(WAIT_LED, True)
         win.after(100, assAndPrint1)        
         
 def countdown(count):
@@ -178,7 +172,7 @@ def assAndPrint():
         print('Photo number ', p_num)
         subprocess.call("/home/booth/shuttermatic/assemble_and_print", shell=True)
         label["text"] = "Thanks!"
-        GPIO.output(WAIT_LED, False)
+#        GPIO.output(WAIT_LED, False)
         startButton.pack(side = LEFT,padx=20)
         start1Button.pack(side = RIGHT, padx=20)
         exitButton.pack(side = BOTTOM)
@@ -198,7 +192,7 @@ def assAndPrint1():
         print('Photo number ', p_num)
         subprocess.call("/home/booth/shuttermatic/assemble_and_print_one", shell=True)
         label["text"] = "Thanks!"
-        GPIO.output(WAIT_LED, False)
+#        GPIO.output(WAIT_LED, False)
         startButton.pack(side = LEFT,padx=20)
         start1Button.pack(side = RIGHT, padx=20)
         exitButton.pack(side = BOTTOM)
@@ -207,6 +201,13 @@ def exitProgram():
     win.destroy()
 
 
+win = Tk()
+myFont = tkFont.Font(family = "Helvetica", size = 36, weight = "bold")
+
+labelText1 = StringVar()
+#chk1 = check_button(labelText1)
+#c1 = Thread(target=chk1.checkloop)
+#c1.start()
 
 
 win.title("Photobooth")
