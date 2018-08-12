@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #forked by Joemags
 #28/08/2017
 
