@@ -210,6 +210,7 @@ def exitProgram():
 
 win = Tk()
 myFont = tkFont.Font(family = "Helvetica", size = 36, weight = "bold")
+otherFont = tkFont.Font(family = "Helvetica", size = 20)
 
 labelText1 = StringVar()
 #chk1 = check_button(labelText1)
@@ -223,8 +224,8 @@ label = Label(win, font = myFont)
 label.place(x=1,y=1)
 label["bg"] = "orange"
 win["bg"] = "orange"
-colourButton = Button(win, text = "Colour", font = myFont, command = set_colour)
-bwButton = Button(win, text = "Black and White", font = myFont, command = set_bw)
+colourButton = Button(win, text = "Colour", font = otherFont, command = set_colour)
+bwButton = Button(win, text = "Black and White", font = otherFont, command = set_bw)
 exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram)
 
 img4 = PhotoImage(file="4button.gif")
