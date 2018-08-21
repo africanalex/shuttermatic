@@ -268,7 +268,7 @@ labelText1 = StringVar()
 
 
 win.title("Photobooth")
-win.attributes("-fullscreen", False)
+win.attributes("-fullscreen", True)
 label = Label(win, font = myFont)
 label.place(x=1,y=1)
 label["bg"] = "orange"
