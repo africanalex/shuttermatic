@@ -132,6 +132,8 @@ def buttonClicked():
     exitButton.pack_forget()
     startButton.pack_forget()
     start1Button.pack_forget()
+    colourButton.pack_forget()
+    bwButton.pack_forget()
     takePhoto(4)
 
 def button1Clicked():
@@ -139,6 +141,8 @@ def button1Clicked():
     exitButton.pack_forget()
     startButton.pack_forget()
     start1Button.pack_forget()
+    colourButton.pack_forget()
+    bwButton.pack_forget()
     take1Photo(1)
 
 def takePhoto(snap):
