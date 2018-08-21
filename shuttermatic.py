@@ -101,16 +101,36 @@ def photo_count():
         return 1
 
 def set_colour():
+    colourButton.pack_forget()
+    bwButton.pack(side = TOP,padx=20)
     print("colour changed ")
     res = open('/home/booth/shuttermatic/settings/colour.txt', 'w')
     res.write('1')
     res.close()
 
 def set_bw():
+    bwButton.pack_forget()
+    colourButton.pack(side = TOP,padx=20)
     print("colour changed ")
     res = open('/home/booth/shuttermatic/settings/colour.txt', 'w')
     res.write('0')
     res.close()
+    
+def set_print_off():
+    printerOffButton.pack_forget()
+    printerOnButton.pack(side = TOP,padx=20)
+    print("setting printer off ")
+    res = open('/home/booth/shuttermatic/settings/printer.txt', 'w')
+    res.write('0')
+    res.close()
+    
+def set_print_on():
+    printerOnButton.pack_forget()
+    printerOffButton.pack(side = TOP,padx=20)
+    print("setting printer off ")
+    res = open('/home/booth/shuttermatic/settings/printer.txt', 'w')
+    res.write('1')
+    res.close()    
 
 def reset_count(num):
     print("reset was clicked ")
@@ -226,6 +246,8 @@ label["bg"] = "orange"
 win["bg"] = "orange"
 colourButton = Button(win, text = "Colour", font = otherFont, command = set_colour)
 bwButton = Button(win, text = "Black and White", font = otherFont, command = set_bw)
+printerOnButton = Button(win, text = "Printer On", font = otherFont, command = set_printer_on)
+printerOffButton = Button(win, text = "Printer Off", font = otherFont, command = set_printer_off)
 exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram)
 
 img4 = PhotoImage(file="4button.gif")
@@ -237,7 +259,7 @@ startButton.pack(side = LEFT,padx=20)
 start1Button.pack(side = RIGHT, padx=20)
 exitButton.pack(side = BOTTOM)
 colourButton.pack(side = TOP, padx=20)
-bwButton.pack(side = TOP,padx=20)
+printerOffButton.pack(side = TOP,padx=20)
 mainloop()
 
       
