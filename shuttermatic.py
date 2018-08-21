@@ -181,8 +181,7 @@ def buttonClicked():
     exitButton.pack_forget()
     startButton.pack_forget()
     start1Button.pack_forget()
-    colourButton.pack_forget()
-    bwButton.pack_forget()
+    settingsButton.pack_forget()
     takePhoto(4)
 
 def button1Clicked():
@@ -190,8 +189,7 @@ def button1Clicked():
     exitButton.pack_forget()
     startButton.pack_forget()
     start1Button.pack_forget()
-    colourButton.pack_forget()
-    bwButton.pack_forget()
+    settingsButton.pack_forget()
     take1Photo(1)
 
 def takePhoto(snap):
@@ -235,8 +233,7 @@ def assAndPrint():
     startButton.pack(side = LEFT,padx=20)
     start1Button.pack(side = RIGHT, padx=20)
     exitButton.pack(side = BOTTOM)
-    colourButton.pack(side = TOP, padx=20)
-    bwButton.pack(side = TOP,padx=20)
+    settingsButton.pack(side = TOP)
     
 def assAndPrint1():
     p_num = int(photo_count())
@@ -250,8 +247,7 @@ def assAndPrint1():
     startButton.pack(side = LEFT,padx=20)
     start1Button.pack(side = RIGHT, padx=20)
     exitButton.pack(side = BOTTOM)
-    colourButton.pack(side = TOP, padx=20)
-    bwButton.pack(side = TOP,padx=20)
+    settingsButton.pack(side = TOP)
 
 def exitProgram():
     win.destroy()
