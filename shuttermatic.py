@@ -179,10 +179,14 @@ def assAndPrint():
     print('Photo number ', p_num)
     subprocess.call("/home/booth/shuttermatic/assemble_and_print", shell=True)
     label["text"] = "Thanks!"
+    time.sleep(3)
+    label["text"] = ""
 #        GPIO.output(WAIT_LED, False)
     startButton.pack(side = LEFT,padx=20)
     start1Button.pack(side = RIGHT, padx=20)
     exitButton.pack(side = BOTTOM)
+    colourButton.pack(side = TOP, padx=20)
+    bwButton.pack(side = TOP,padx=20)
     
 def assAndPrint1():
     p_num = int(photo_count())
@@ -190,10 +194,14 @@ def assAndPrint1():
     print('Photo number ', p_num)
     subprocess.call("/home/booth/shuttermatic/assemble_and_print_one", shell=True)
     label["text"] = "Thanks!"
+    time.sleep(3)
+    label["text"] = ""
 #        GPIO.output(WAIT_LED, False)
     startButton.pack(side = LEFT,padx=20)
     start1Button.pack(side = RIGHT, padx=20)
     exitButton.pack(side = BOTTOM)
+    colourButton.pack(side = TOP, padx=20)
+    bwButton.pack(side = TOP,padx=20)
 
 def exitProgram():
     win.destroy()
