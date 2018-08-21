@@ -164,12 +164,13 @@ def take1Photo(snap):
         win.after(100, assAndPrint1)        
         
 def countdown(count):
+    callCamera()
     label["text"] = count
     if count > 0:
         win.after(1000, countdown, count-1)
     else:
         label["text"] = ""
-        win.after(100, callCamera)
+#        win.after(100, callCamera)
 
 def callCamera():
     subprocess.check_output("/home/booth/shuttermatic/boothcamera.sh", shell=True)
