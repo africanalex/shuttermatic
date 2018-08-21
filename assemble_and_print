@@ -13,7 +13,7 @@ echo "skipping printer"
 fi
 suffix=$(date +%H%M%S)
 #sudo cp /home/booth/temp_montage3.jpg /var/www/html/photobooth/PB_archive/PB_${suffix}.jpg
-#scp -v /home/booth/temp_montage3.jpg jimmy@192.168.10.10:/var/www/html/photos/Wedding_${suffix}.jpg
+scp -v /home/booth/temp_montage3.jpg jimmy@192.168.10.10:/var/www/html/photos/Wedding_${suffix}.jpg
 sudo cp /home/booth/temp_montage3.jpg /home/photobooth/booth_images/Archive_${suffix}.jpg
 rm /home/booth/photobooth_images/*.jpg
 rm /home/booth/temp*
