@@ -100,6 +100,18 @@ def photo_count():
         new.close()
         return 1
 
+def set_colour():
+    print("colour changed ")
+    res = open('/Users/alexbaxter/Projects/shuttermatic/settings/colour.txt', 'w')
+    res.write('1')
+    res.close()
+
+def set_bw():
+    print("colour changed ")
+    res = open('/Users/alexbaxter/Projects/shuttermatic/settings/colour.txt', 'w')
+    res.write('0')
+    res.close()
+
 def reset_count(num):
     print("reset was clicked ")
     def wait_t():
@@ -160,42 +172,24 @@ def callCamera():
 
 def assAndPrint():
     p_num = int(photo_count())
-    if p_num > 36:
-        label["text"] = "Please check the cartridge"
-        def continueBtnFunc(func_num):
-            reset_count(func_num)
-            continueBtn.pack_forget()
-        continueBtn = Button(win, text = "Continue", font = myFont,   command=lambda: continueBtnFunc(4))
-        continueBtn.pack(side = BOTTOM)
-        
-    elif p_num <= 36:
-        print('Photo number ', p_num)
-        subprocess.call("/home/booth/shuttermatic/assemble_and_print", shell=True)
-        label["text"] = "Thanks!"
+    print('Photo number ', p_num)
+    subprocess.call("/home/booth/shuttermatic/assemble_and_print", shell=True)
+    label["text"] = "Thanks!"
 #        GPIO.output(WAIT_LED, False)
-        startButton.pack(side = LEFT,padx=20)
-        start1Button.pack(side = RIGHT, padx=20)
-        exitButton.pack(side = BOTTOM)
+    startButton.pack(side = LEFT,padx=20)
+    start1Button.pack(side = RIGHT, padx=20)
+    exitButton.pack(side = BOTTOM)
     
 def assAndPrint1():
     p_num = int(photo_count())
     printerOn = int(printer_on())
-    if p_num > 36 & printerOn == 1:
-        label["text"] = "Please check the cartridge"
-        def continueBtnFunc(func_num):
-            reset_count(func_num)
-            continueBtn.pack_forget()
-        continueBtn = Button(win, text = "Continue", font = myFont,   command=lambda: continueBtnFunc(1))
-        continueBtn.pack(side = BOTTOM)
-        
-    else:
-        print('Photo number ', p_num)
-        subprocess.call("/home/booth/shuttermatic/assemble_and_print_one", shell=True)
-        label["text"] = "Thanks!"
+    print('Photo number ', p_num)
+    subprocess.call("/home/booth/shuttermatic/assemble_and_print_one", shell=True)
+    label["text"] = "Thanks!"
 #        GPIO.output(WAIT_LED, False)
-        startButton.pack(side = LEFT,padx=20)
-        start1Button.pack(side = RIGHT, padx=20)
-        exitButton.pack(side = BOTTOM)
+    startButton.pack(side = LEFT,padx=20)
+    start1Button.pack(side = RIGHT, padx=20)
+    exitButton.pack(side = BOTTOM)
 
 def exitProgram():
     win.destroy()
@@ -214,10 +208,12 @@ win.title("Photobooth")
 win.attributes("-fullscreen", False)
 label = Label(win, font = myFont)
 label.place(relx=0.5, rely=0.5, anchor=CENTER)
-label["bg"] = "yellow"
-win["bg"] = "yellow"
+label["bg"] = "orange"
+win["bg"] = "orange"
+colourButton = Button(win, text = "Colour", font = myFont, command = set_colour)
+bwButton = Button(win, text = "Black and White", font = myFont, command = set_bw)
 exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram)
-exitButton.pack(side = BOTTOM)
+
 img4 = PhotoImage(file="4button.gif")
 startButton = Button(win, image = img4, font = myFont, command = buttonClicked)
 img1 = PhotoImage(file="1button.gif")
@@ -225,7 +221,9 @@ start1Button = Button(win, image=img1, command = button1Clicked)
 
 startButton.pack(side = LEFT,padx=20)
 start1Button.pack(side = RIGHT, padx=20)
-
+exitButton.pack(side = BOTTOM)
+colourButton.pack(side = TOP, padx=20)
+bwButton.pack(side = TOP,padx=20)
 mainloop()
 
       
