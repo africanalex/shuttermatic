@@ -173,7 +173,7 @@ def countdown(count):
 #        win.after(100, callCamera)
 
 def callCamera():
-    subprocess.check_output("/home/booth/shuttermatic/boothcamera.sh", shell=True)
+    subprocess.Popen("/home/booth/shuttermatic/boothcamera.sh", shell=True)
 
 def assAndPrint():
     p_num = int(photo_count())
