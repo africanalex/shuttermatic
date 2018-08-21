@@ -1,6 +1,6 @@
 #!/bin/bash
-#mogrify -resize 968x648 /home/booth/photobooth_images/*.jpg
 mogrify -resize 968x648 /home/booth/photobooth_images/*.jpg
+#mogrify -resize 968x648 /home/booth/photobooth_images/*.jpg
 montage /home/booth/photobooth_images/*.jpg -tile 2x2 -geometry +10+10 /home/booth/temp_montage2.jpg
 montage /home/booth/temp_montage2.jpg /home/booth/shuttermatic/photobooth_label.jpg -tile 2x1 -geometry +5+5 /home/booth/temp_montage3.jpg
 value=$(<settings/printer.txt)
