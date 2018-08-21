@@ -102,13 +102,13 @@ def photo_count():
 
 def set_colour():
     print("colour changed ")
-    res = open('/Users/alexbaxter/Projects/shuttermatic/settings/colour.txt', 'w')
+    res = open('/home/booth/shuttermatic/settings/colour.txt', 'w')
     res.write('1')
     res.close()
 
 def set_bw():
     print("colour changed ")
-    res = open('/Users/alexbaxter/Projects/shuttermatic/settings/colour.txt', 'w')
+    res = open('/home/booth/shuttermatic/settings/colour.txt', 'w')
     res.write('0')
     res.close()
 
