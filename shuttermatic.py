@@ -147,7 +147,7 @@ def set_bw():
     
 def set_print_off():
     printerOffButton.pack_forget()
-    printerOnButton.pack(side = TOP,padx=20)
+    printerOnButton.pack(side = BOTTOM,padx=20)
     print("setting printer off ")
     res = open('/home/booth/shuttermatic/settings/printer.txt', 'w')
     res.write('0')
@@ -155,7 +155,7 @@ def set_print_off():
     
 def set_print_on():
     printerOnButton.pack_forget()
-    printerOffButton.pack(side = TOP,padx=20)
+    printerOffButton.pack(side = BOTTOM,padx=20)
     print("setting printer on ")
     res = open('/home/booth/shuttermatic/settings/printer.txt', 'w')
     res.write('1')
