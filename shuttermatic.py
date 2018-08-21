@@ -65,24 +65,53 @@ import time, os, subprocess
 
 
 def photos_taken():
-    import os
     if(os.path.isfile('./settings/f_count.txt')):
         m = open('/home/booth/shuttermatic/settings/f_count.txt', 'r')
         n = int(m.read())
         m.close()
         return n
+    
+def settings():
+    startButton.pack_forget()
+    start1Button.pack_forget()
+    settingsButton.pack_forget()
+    backButton.pack(side = BOTTOM)
+    if(os.path.isfile('./settings/colour.txt')):
+        m = open('/home/booth/shuttermatic/settings/colour.txt', 'r')
+        n = int(m.read())
+        m.close()
+        if(n == 1):
+            bwButton.pack(side = TOP,padx=20)
+        else:
+            colourButton.pack(side = TOP,padx=20)
+    if(os.path.isfile('./settings/printer.txt')):
+        m = open('/home/booth/shuttermatic/settings/printer.txt', 'r')
+        n = int(m.read())
+        m.close()
+        if(n == 1):
+            printerOffButton.pack(side = TOP,padx=20)
+        else:
+            printerOnButton.pack(side = TOP,padx=20)
+            
+def back():
+    backButton.pack_forget()
+    colourButton.pack_forget()
+    bwButton.pack_forget()
+    printerOnButton.pack_forget()
+    printerOffButton.pack_forget()
+    startButton.pack(side = LEFT,padx=20)
+    start1Button.pack(side = RIGHT, padx=20)
+    settingsButton.pack(side = TOP)
+    
 
 def printer_on():
-    import os
     if(os.path.isfile('./settings/printer.txt')):
         m = open('/home/booth/shuttermatic/settings/printer.txt', 'r')
         n = int(m.read())
         m.close()
         return n
-
     
 def photo_count():
-    import os
     if(os.path.isfile('./settings/f_count.txt')):
         m = open('/home/booth/shuttermatic/settings/f_count.txt', 'r')
         n = int(m.read())
@@ -127,7 +156,7 @@ def set_print_off():
 def set_print_on():
     printerOnButton.pack_forget()
     printerOffButton.pack(side = TOP,padx=20)
-    print("setting printer off ")
+    print("setting printer on ")
     res = open('/home/booth/shuttermatic/settings/printer.txt', 'w')
     res.write('1')
     res.close()    
@@ -246,20 +275,21 @@ label["bg"] = "orange"
 win["bg"] = "orange"
 colourButton = Button(win, text = "Colour", font = otherFont, command = set_colour)
 bwButton = Button(win, text = "Black and White", font = otherFont, command = set_bw)
-printerOnButton = Button(win, text = "Printer On", font = otherFont, command = set_printer_on)
-printerOffButton = Button(win, text = "Printer Off", font = otherFont, command = set_printer_off)
+printerOnButton = Button(win, text = "Printer On", font = otherFont, command = set_print_on)
+printerOffButton = Button(win, text = "Printer Off", font = otherFont, command = set_print_off)
+backButton = Button(win, text = "Back", font = otherFont, command = back)
+settingsButton = Button(win, text = "Settings", font = otherFont, command = settings)
+
 exitButton = Button(win, text = "Exit", font = myFont, command = exitProgram)
 
 img4 = PhotoImage(file="4button.gif")
 startButton = Button(win, image = img4, font = myFont, command = buttonClicked)
 img1 = PhotoImage(file="1button.gif")
 start1Button = Button(win, image=img1, command = button1Clicked)
-
+settingsButton.pack(side = TOP)
 startButton.pack(side = LEFT,padx=20)
 start1Button.pack(side = RIGHT, padx=20)
 exitButton.pack(side = BOTTOM)
-colourButton.pack(side = TOP, padx=20)
-printerOffButton.pack(side = TOP,padx=20)
 mainloop()
 
       
