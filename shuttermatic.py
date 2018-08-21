@@ -89,9 +89,9 @@ def settings():
         n = int(m.read())
         m.close()
         if(n == 1):
-            printerOffButton.pack(side = TOP,padx=20)
+            printerOffButton.pack(side = BOTTOM,padx=20)
         else:
-            printerOnButton.pack(side = TOP,padx=20)
+            printerOnButton.pack(side = BOTTOM,padx=20)
             
 def back():
     backButton.pack_forget()
