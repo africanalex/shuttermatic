@@ -275,8 +275,8 @@ label["bg"] = "orange"
 win["bg"] = "orange"
 colourButton = Button(win, text = "Colour", font = otherFont, command = set_colour)
 bwButton = Button(win, text = "Black and White", font = otherFont, command = set_bw)
-printerOnButton = Button(win, text = "Printer On", font = otherFont, command = set_print_on)
-printerOffButton = Button(win, text = "Printer Off", font = otherFont, command = set_print_off)
+printerOnButton = Button(win, text = "Printer Off", font = otherFont, command = set_print_on)
+printerOffButton = Button(win, text = "Printer On", font = otherFont, command = set_print_off)
 backButton = Button(win, text = "Back", font = otherFont, command = back)
 settingsButton = Button(win, text = "Settings", font = otherFont, command = settings)
 
